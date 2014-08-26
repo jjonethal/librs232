@@ -29,9 +29,14 @@
 
 #include <windows.h>
 
+#ifndef CBR_230400
+#define CBR_230400 230400
+#endif
+
 #ifndef CBR_460800
 #define CBR_460800 460800
 #endif
+
 
 struct rs232_windows_t {
 	HANDLE fd;
