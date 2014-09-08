@@ -4,8 +4,19 @@ platform = "linux"
 -- port_name = "COM1"
 -- platform = "win32"
 
+system = system or os.getenv("win7") or "linux"
 
 rs232 = require("luars232")
+
+syscfg = {
+	Win7  = {platform="win32", port_name="COM18",        },
+	WIN7  = {platform="win32", port_name="COM18",        },
+	linux = {platform="linux", port_name="/dev/ttyUSB0",},
+}
+
+port_name = syscfg[system] and syscfg[system].port_name or "/dev/ttyUSB0"
+platform  = syscfg[system] and syscfg[system].platform  or "linux"
+print(system, port_name, platform)
 
 
 function time_stamp()
@@ -77,6 +88,7 @@ baud_rates = {
 	"rs232.RS232_BAUD_38400",
 	"rs232.RS232_BAUD_57600",
 	"rs232.RS232_BAUD_115200",
+	"rs232.RS232_BAUD_230400",
 }
 
 -- It's such a crap, Windows seems to not like 5 data
@@ -84,7 +96,7 @@ baud_rates = {
 -- Windows, I'll buy you a beer or two...
 if platform == "win32" then
 	data_bits = {
-		"rs232.RS232_DATA_6",
+--		"rs232.RS232_DATA_6",
 		"rs232.RS232_DATA_7",
 		"rs232.RS232_DATA_8",
 	}
