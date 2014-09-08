@@ -31,4 +31,6 @@ ltmain.sh
 missing
 Makefile
 libtool
+build/*.*
+buildx64/*.*
 *.pc
