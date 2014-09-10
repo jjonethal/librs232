@@ -1,7 +1,7 @@
 mkdir build
 
 IF "%TARGET%"  == "" SET TARGET=x86
-IF "%WIN_SDK%" == "" SET WIN_SDK="C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.Cmd"
+IF '%WIN_SDK%' == '' SET WIN_SDK="C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.Cmd"
 IF "%LUA_LIB%" == "" SET LUA_LIB=E:\luajit\%TARGET%
 call %WIN_SDK% /%TARGET% /release
 
