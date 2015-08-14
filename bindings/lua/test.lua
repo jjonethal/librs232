@@ -8,13 +8,24 @@ system = system or os.getenv("win7") or "linux"
 
 rs232 = require("luars232")
 
+function win32GetAnyComport()
+  local r,c = pcall(function()
+    local out = io.popen([[reg QUERY HKLM\Hardware\DEVICEMAP\SERIALCOMM]])
+    local c=out:read("*a"):upper():match("\\DEVICE\\%w+%s+REG_SZ%s+(%w+)")
+    out:close()
+    return c
+  end)
+  return c
+end
+
+
 syscfg = {
 	Win7  = {platform="win32", port_name="COM18",        },
 	WIN7  = {platform="win32", port_name="COM18",        },
 	linux = {platform="linux", port_name="/dev/ttyUSB0",},
 }
 
-port_name = syscfg[system] and syscfg[system].port_name or "/dev/ttyUSB0"
+port_name = syscfg[system] and win32GetAnyComport() or syscfg[system].port_name or "/dev/ttyUSB0"
 platform  = syscfg[system] and syscfg[system].platform  or "linux"
 print(system, port_name, platform)
 
