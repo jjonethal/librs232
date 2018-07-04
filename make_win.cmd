@@ -10,8 +10,8 @@ call %WIN_SDK% /%TARGET% /release
 set INCLUDE=%CD%\include;%LUA_LIB%;%INCLUDE%;%LUA_LIB%\include
 echo INCLUDE_PATH: %INCLUDE%
 pushd build
-@echo on
-cl /O2 /DUNICODE /D_UNICODE /DWIN32 /D_WIN32 /DRS232_EXPORT /D_WINDOWS /D_USRDLL /Dlibrs232lua_EXPORTS ..\bindings\lua\luars232.c ..\src\rs232.c ..\src\rs232_windows.c %LUA_LIB%\lua51.lib /O2 /LD /link /dll
+cl /O2 /DUNICODE /DluaL_reg=luaL_Reg /D_UNICODE /DWIN32 /DRS232_EXPORT ..\bindings\lua\luars232.c ..\src\rs232.c ..\src\rs232_windows.c %LUA_LIB%\lua51.lib /O2 /LD /link /dll
+copy luars232.dll "%LUA_LIB%"
 pause
 copy ..\bindings\lua\test.lua .
 ::E:\luajit\x86\luajit test.lua
